@@ -1,0 +1,47 @@
+{
+ "generated_at": "2026-11-27T12:55:21.527Z",
+ "banks": {
+  "akbank": {
+   "status": "ok",
+   "offers": 4,
+   "seconds": 67,
+   "attempt": 1,
+   "evidence": {
+    "E": {
+     "sweepAmount": 2000000,
+     "groups": [
+      {
+       "termMin": 1,
+       "termMax": 60,
+       "rate": "3.05"
+      },
+      {
+       "termMin": 61,
+       "termMax": 120,
+       "rate": "2.85"
+      }
+     ],
+     "amount_500000": "same",
+     "amount_5000000": "same"
+    },
+    "H": {
+     "sweepAmount": 2000000,
+     "groups": [
+      {
+       "termMin": 1,
+       "termMax": 60,
+       "rate": "3.15"
+      },
+      {
+       "termMin": 61,
+       "termMax": 120,
+       "rate": "3.00"
+      }
+     ],
+     "amount_500000": "same",
+     "amount_5000000": "same"
+    }
+   }
+  }
+ }
+}

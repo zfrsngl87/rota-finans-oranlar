@@ -1,0 +1,43 @@
+# Collects konut kredisi rates from banks' own public pages 3x per day
+# (07:15, 12:15, 17:15 Europe/Istanbul) and publishes data/rates.json.
+# The ROTA FİNANS app reads:
+#   https://raw.githubusercontent.com/<owner>/<repo>/main/data/rates.json
+name: collect-rates
+
+on:
+  schedule:
+    - cron: '15 4,9,14 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect-rates
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Collect
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+          PREVIOUS_RATES: data/rates.json
+        run: node src/run.mjs
+      - name: Publish
+        run: |
+          cp out/rates.json data/rates.json
+          cp out/health.json data/health.json
+          git config user.name "rota-finans-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          git commit -m "rates $(date -u +%Y-%m-%dT%H:%MZ)" || echo "no change"
+          git push
