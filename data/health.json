@@ -1,10 +1,10 @@
 {
- "generated_at": "2026-11-27T13:50:52.401Z",
+ "generated_at": "2026-11-27T13:53:58.564Z",
  "banks": {
   "akbank": {
    "status": "ok",
-   "offers": 5,
-   "seconds": 88,
+   "offers": 6,
+   "seconds": 89,
    "attempt": 1,
    "evidence": {
     "E": {
@@ -26,7 +26,18 @@
        "rate": "2.85"
       }
      ],
-     "amount_500000": "same",
+     "amount_500000": [
+      {
+       "termMin": 1,
+       "termMax": 60,
+       "rate": "3.05"
+      },
+      {
+       "termMin": 61,
+       "termMax": 120,
+       "rate": "2.85"
+      }
+     ],
      "amount_5000000": "same"
     },
     "H": {
@@ -34,18 +45,6 @@
      "groups": [
       {
        "termMin": 1,
-       "termMax": 60,
-       "rate": "3.15"
-      },
-      {
-       "termMin": 61,
-       "termMax": 120,
-       "rate": "3.00"
-      }
-     ],
-     "amount_500000": [
-      {
-       "termMin": 1,
        "termMax": 1,
        "rate": "3.00"
       },
@@ -60,23 +59,8 @@
        "rate": "3.00"
       }
      ],
-     "amount_5000000": [
-      {
-       "termMin": 1,
-       "termMax": 1,
-       "rate": "3.00"
-      },
-      {
-       "termMin": 2,
-       "termMax": 60,
-       "rate": "3.15"
-      },
-      {
-       "termMin": 61,
-       "termMax": 120,
-       "rate": "3.00"
-      }
-     ]
+     "amount_500000": "same",
+     "amount_5000000": "same"
     }
    }
   }
