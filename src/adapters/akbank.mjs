@@ -25,15 +25,24 @@ export async function collect(browser, { maxTerm = 120, amounts = [500000, 20000
     return { term: Number(m[1]), installment: m[2].replace(/\s/g, ''), rate: normalizeRate(m[3]) };
   };
   // Wait until the shown term is the expected one AND the installment changed,
-  // so a stale/default result is never recorded.
+  // then require the whole result (term, installment, rate) to stay identical
+  // across two reads 600 ms apart. The page can update term/installment
+  // before the rate (seen on GitHub runners: term 1 showed the 120-month
+  // rate), so a single read is never trusted.
   let previous = null;
+  const same = (a, b) => a.term === b.term && a.installment === b.installment && a.rate === b.rate;
   const readFor = async (term) => {
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 40; i++) {
       const r = await read();
-      if (r.term === term && r.installment !== previous) { previous = r.installment; return r; }
+      if (r.term === term && r.installment !== previous) {
+        await page.waitForTimeout(600);
+        const r2 = await read();
+        if (same(r, r2)) { previous = r.installment; return r; }
+        continue;
+      }
       await page.waitForTimeout(200);
     }
-    throw new Error(`calculator did not update for term ${term}`);
+    throw new Error(`calculator did not settle for term ${term}`);
   };
   const setAmount = async (a) => {
     const el = page.locator('input[name=creditAmount]');
@@ -54,6 +63,7 @@ export async function collect(browser, { maxTerm = 120, amounts = [500000, 20000
     await thumb.focus();
     previous = null;
     await page.keyboard.press('Home');
+    await page.waitForTimeout(1500);
     const readings = [];
     for (let term = 1; term <= maxTerm; term++) {
       if (term > 1) {
