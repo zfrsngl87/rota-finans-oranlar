@@ -1,58 +1,21 @@
 {
- "generated_at": "2026-11-27T15:32:45.196Z",
+ "generated_at": "2026-11-27T17:38:40.917Z",
  "banks": {
   "akbank": {
-   "status": "ok",
-   "offers": 4,
-   "seconds": 470,
-   "attempt": 1,
-   "evidence": {
-    "E": {
-     "sweepAmount": 2000000,
-     "groups": [
-      {
-       "termMin": 1,
-       "termMax": 60,
-       "rate": "3.05"
-      },
-      {
-       "termMin": 61,
-       "termMax": 120,
-       "rate": "2.85"
-      }
-     ],
-     "amount_500000": "same",
-     "amount_5000000": "same"
-    },
-    "H": {
-     "sweepAmount": 2000000,
-     "groups": [
-      {
-       "termMin": 1,
-       "termMax": 60,
-       "rate": "3.15"
-      },
-      {
-       "termMin": 61,
-       "termMax": 120,
-       "rate": "3.00"
-      }
-     ],
-     "amount_500000": "same",
-     "amount_5000000": "same"
-    }
-   }
+   "status": "failed",
+   "error": "page.goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.akbank.com/basvuru/konut-kredisi\", waiting until \"networkidle\"\n",
+   "carried_over": 4
   },
   "teb": {
    "status": "failed",
-   "error": "page.goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.teb.com.tr/kredi-hesaplama/\", waiting until \"networkidle\"\n",
+   "error": "page.goto: Timeout 90000ms exceeded.\nCall log:\n  - navigating to \"https://www.teb.com.tr/kredi-hesaplama/\", waiting until \"domcontentloaded\"\n",
    "carried_over": 0
   },
   "sekerbank": {
    "status": "ok",
    "offers": 14,
-   "seconds": 939,
-   "attempt": 2,
+   "seconds": 757,
+   "attempt": 1,
    "evidence": {
     "terms": "3..120 (118)",
     "E": {
@@ -140,6 +103,11 @@
      "amount_5000000": "same"
     }
    }
+  },
+  "anadolubank": {
+   "status": "failed",
+   "error": "no term options",
+   "carried_over": 0
   }
  }
 }
