@@ -1,10 +1,10 @@
 {
- "generated_at": "2026-11-27T14:02:33.204Z",
+ "generated_at": "2026-11-27T15:32:45.196Z",
  "banks": {
   "akbank": {
    "status": "ok",
    "offers": 4,
-   "seconds": 471,
+   "seconds": 470,
    "attempt": 1,
    "evidence": {
     "E": {
@@ -36,6 +36,104 @@
        "termMin": 61,
        "termMax": 120,
        "rate": "3.00"
+      }
+     ],
+     "amount_500000": "same",
+     "amount_5000000": "same"
+    }
+   }
+  },
+  "teb": {
+   "status": "failed",
+   "error": "page.goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.teb.com.tr/kredi-hesaplama/\", waiting until \"networkidle\"\n",
+   "carried_over": 0
+  },
+  "sekerbank": {
+   "status": "ok",
+   "offers": 14,
+   "seconds": 939,
+   "attempt": 2,
+   "evidence": {
+    "terms": "3..120 (118)",
+    "E": {
+     "sweepAmount": 2000000,
+     "groups": [
+      {
+       "termMin": 3,
+       "termMax": 11,
+       "rate": "4.58"
+      },
+      {
+       "termMin": 12,
+       "termMax": 12,
+       "rate": "4.50"
+      },
+      {
+       "termMin": 13,
+       "termMax": 24,
+       "rate": "4.25"
+      },
+      {
+       "termMin": 25,
+       "termMax": 36,
+       "rate": "4.08"
+      },
+      {
+       "termMin": 37,
+       "termMax": 48,
+       "rate": "3.92"
+      },
+      {
+       "termMin": 49,
+       "termMax": 119,
+       "rate": "3.67"
+      },
+      {
+       "termMin": 120,
+       "termMax": 120,
+       "rate": "3.58"
+      }
+     ],
+     "amount_500000": "same",
+     "amount_5000000": "same"
+    },
+    "H": {
+     "sweepAmount": 2000000,
+     "groups": [
+      {
+       "termMin": 3,
+       "termMax": 11,
+       "rate": "5.92"
+      },
+      {
+       "termMin": 12,
+       "termMax": 12,
+       "rate": "5.84"
+      },
+      {
+       "termMin": 13,
+       "termMax": 24,
+       "rate": "5.59"
+      },
+      {
+       "termMin": 25,
+       "termMax": 36,
+       "rate": "5.42"
+      },
+      {
+       "termMin": 37,
+       "termMax": 48,
+       "rate": "5.26"
+      },
+      {
+       "termMin": 49,
+       "termMax": 119,
+       "rate": "5.01"
+      },
+      {
+       "termMin": 120,
+       "termMax": 120,
+       "rate": "4.92"
       }
      ],
      "amount_500000": "same",
