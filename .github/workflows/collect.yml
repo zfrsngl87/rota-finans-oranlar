@@ -31,11 +31,16 @@ jobs:
         env:
           CHROME_PATH: /usr/bin/google-chrome
           PREVIOUS_RATES: data/rates.json
+          MANUAL_RATES: data/manual-rates.json
         run: node src/run.mjs
       - name: Publish
         run: |
+          # Take the newest owner-entered rates (may have changed during the run).
+          git fetch -q origin main
+          git checkout origin/main -- data/manual-rates.json 2>/dev/null || true
           cp out/rates.json data/rates.json
           cp out/health.json data/health.json
+          node src/merge-manual.mjs
           git config user.name "rota-finans-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data

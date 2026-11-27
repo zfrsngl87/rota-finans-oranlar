@@ -1,0 +1,82 @@
+name: Oran gir (elle onay)
+description: Bankanın kendi sitesinde gördüğünüz konut kredisi oranını tüm telefonlara gönderin.
+title: "Oran: "
+labels: ["oran"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Yalnızca **bankanın kendi sitesinde** gördüğünüz **konut kredisi** oranını girin.
+        Ek ürün paketi / maaş şartlı veya "ilk ev" şartlı oranları girmeyin. Katılım bankaları kullanılmaz.
+        Girilen oran 24 saat güncel sayılır, 72 saat sonra kullanılmaz — oran değişmese de her gün yeniden girin.
+        Yalnızca depo sahibinin girişleri dikkate alınır.
+  - type: dropdown
+    id: banka
+    attributes:
+      label: Banka
+      options:
+        - Garanti BBVA
+        - Yapı Kredi
+        - İş Bankası
+        - VakıfBank
+        - Ziraat Bankası
+        - QNB
+        - ING
+        - Alternatif Bank
+        - Halkbank
+        - Akbank
+        - TEB
+        - Şekerbank
+        - Anadolubank
+    validations:
+      required: true
+  - type: input
+    id: oran
+    attributes:
+      label: Aylık faiz oranı
+      description: "Örnek: 3,19"
+      placeholder: "3,19"
+    validations:
+      required: true
+  - type: input
+    id: vade_min
+    attributes:
+      label: En kısa vade (ay)
+      value: "1"
+    validations:
+      required: true
+  - type: input
+    id: vade_max
+    attributes:
+      label: En uzun vade (ay)
+      value: "48"
+    validations:
+      required: true
+  - type: dropdown
+    id: sigorta
+    attributes:
+      label: Sigorta şartlı mı?
+      options:
+        - "Evet (hayat sigortalı oran)"
+        - "Hayır (sigortasız oran)"
+    validations:
+      required: true
+  - type: input
+    id: kaynak
+    attributes:
+      label: Bankanın sayfa bağlantısı
+      description: Oranı gördüğünüz banka sayfasının adresi (https:// ile).
+      placeholder: "https://www.garantibbva.com.tr/..."
+    validations:
+      required: true
+  - type: input
+    id: not
+    attributes:
+      label: Not (isteğe bağlı)
+  - type: checkboxes
+    id: onay
+    attributes:
+      label: Onay
+      options:
+        - label: Bu oranı bugün bankanın kendi sayfasında gördüm.
+          required: true

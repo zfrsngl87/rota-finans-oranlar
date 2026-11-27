@@ -1,0 +1,66 @@
+# Owner-entered rate via the "Oran gir" issue form → data/manual-rates.json
+# → merged into data/rates.json within ~1 minute. Issues from anyone other
+# than the repository owner are closed without changing any data.
+name: oran-gir
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: oran-gir
+  cancel-in-progress: false
+
+jobs:
+  add:
+    if: contains(github.event.issue.labels.*.name, 'oran')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Reject non-owner
+        if: github.event.issue.user.login != github.repository_owner
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          gh issue close "$ISSUE" -R "$GITHUB_REPOSITORY" -c "Bu form yalnızca depo sahibi içindir; oran eklenmedi."
+          exit 1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Add entry
+        id: add
+        env:
+          BODY: ${{ github.event.issue.body }}
+          CREATED: ${{ github.event.issue.created_at }}
+        run: |
+          printf '%s' "$BODY" > /tmp/body.md
+          set +e
+          node src/add-manual.mjs /tmp/body.md "$CREATED" > /tmp/result.txt
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+          cat /tmp/result.txt
+      - name: Publish
+        if: steps.add.outputs.code == '0'
+        run: |
+          git config user.name "rota-finans-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          git commit -m "manual rate (issue #${{ github.event.issue.number }})"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push && exit 0
+            sleep 5
+          done
+          exit 1
+      - name: Reply and close
+        if: always() && github.event.issue.user.login == github.repository_owner
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          msg="$(cat /tmp/result.txt 2>/dev/null || echo 'HATA: işlem tamamlanamadı.')"
+          gh issue close "$ISSUE" -R "$GITHUB_REPOSITORY" -c "$msg"

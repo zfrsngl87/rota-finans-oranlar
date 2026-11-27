@@ -3,6 +3,7 @@
 // Usage: node src/run.mjs [bankId ...]
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { launchBrowser, sleep } from './common.mjs';
+import { manualOffers, readManual } from './manual.mjs';
 import * as akbank from './adapters/akbank.mjs';
 import * as teb from './adapters/teb.mjs';
 import * as sekerbank from './adapters/sekerbank.mjs';
@@ -55,7 +56,8 @@ if (previousPath && existsSync(previousPath)) {
     for (const [bankId, h] of Object.entries(health)) {
       if (h.status !== 'failed') continue;
       const kept = (prev.offers || []).filter(o =>
-        o.bank_id === bankId && Date.parse(o.retrieved_at) > limit);
+        o.bank_id === bankId && o.rate_type !== 'manualVerified' &&
+        Date.parse(o.retrieved_at) > limit);
       offers.push(...kept);
       h.carried_over = kept.length;
     }
@@ -63,6 +65,11 @@ if (previousPath && existsSync(previousPath)) {
     console.log(`previous rates unreadable: ${e.message}`);
   }
 }
+
+// Owner-entered rates (GitHub issue form) are added on every run.
+const manual = manualOffers(readManual(process.env.MANUAL_RATES));
+offers.push(...manual);
+health.manual = { entries: manual.length };
 
 mkdirSync(new URL('../out/', import.meta.url), { recursive: true });
 const generatedAt = new Date().toISOString();
