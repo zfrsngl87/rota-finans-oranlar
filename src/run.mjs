@@ -6,10 +6,11 @@ import { launchBrowser, sleep } from './common.mjs';
 import * as akbank from './adapters/akbank.mjs';
 import * as teb from './adapters/teb.mjs';
 import * as sekerbank from './adapters/sekerbank.mjs';
+import * as anadolubank from './adapters/anadolubank.mjs';
 // DenizBank adapter kept for reference but DISABLED: owner decision 2026-11-27
 // ("deniz bankı kullanma") — its calculator only covers up to 1.000.000 TL.
 
-const ADAPTERS = [akbank, teb, sekerbank];
+const ADAPTERS = [akbank, teb, sekerbank, anadolubank];
 const only = process.argv.slice(2);
 const selected = ADAPTERS.filter(a => !only.length || only.includes(a.meta.bankId));
 

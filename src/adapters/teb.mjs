@@ -14,7 +14,11 @@ export const meta = {
 
 export async function collect(browser, { amounts = [500000, 2000000, 5000000] } = {}) {
   const page = await (await browser.newContext({ locale: 'tr-TR' })).newPage();
-  await page.goto(meta.url, { waitUntil: 'networkidle', timeout: 60000 });
+  // 'networkidle' never settles from some networks (tracking scripts) →
+  // wait for the calculator itself instead.
+  await page.goto(meta.url, { waitUntil: 'domcontentloaded', timeout: 90000 });
+  await page.locator('#amount1').waitFor({ timeout: 60000 });
+  await page.waitForTimeout(2000);
   const tab = page.locator('a', { hasText: 'Konut Kredisi' });
   let clicked = false;
   for (let i = 0; i < await tab.count() && !clicked; i++) {
