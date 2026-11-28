@@ -1,10 +1,47 @@
 {
- "generated_at": "2026-11-27T17:38:40.917Z",
+ "generated_at": "2026-11-28T05:37:42.025Z",
  "banks": {
   "akbank": {
-   "status": "failed",
-   "error": "page.goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.akbank.com/basvuru/konut-kredisi\", waiting until \"networkidle\"\n",
-   "carried_over": 4
+   "status": "ok",
+   "offers": 4,
+   "seconds": 473,
+   "attempt": 1,
+   "evidence": {
+    "E": {
+     "sweepAmount": 2000000,
+     "groups": [
+      {
+       "termMin": 1,
+       "termMax": 60,
+       "rate": "3.05"
+      },
+      {
+       "termMin": 61,
+       "termMax": 120,
+       "rate": "2.85"
+      }
+     ],
+     "amount_500000": "same",
+     "amount_5000000": "same"
+    },
+    "H": {
+     "sweepAmount": 2000000,
+     "groups": [
+      {
+       "termMin": 1,
+       "termMax": 60,
+       "rate": "3.15"
+      },
+      {
+       "termMin": 61,
+       "termMax": 120,
+       "rate": "3.00"
+      }
+     ],
+     "amount_500000": "same",
+     "amount_5000000": "same"
+    }
+   }
   },
   "teb": {
    "status": "failed",
@@ -14,7 +51,7 @@
   "sekerbank": {
    "status": "ok",
    "offers": 14,
-   "seconds": 757,
+   "seconds": 777,
    "attempt": 1,
    "evidence": {
     "terms": "3..120 (118)",
@@ -108,6 +145,9 @@
    "status": "failed",
    "error": "no term options",
    "carried_over": 0
+  },
+  "manual": {
+   "entries": 0
   }
  }
 }
