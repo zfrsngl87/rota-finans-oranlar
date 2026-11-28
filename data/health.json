@@ -1,10 +1,10 @@
 {
- "generated_at": "2026-11-28T05:37:42.025Z",
+ "generated_at": "2026-11-28T10:25:19.170Z",
  "banks": {
   "akbank": {
    "status": "ok",
    "offers": 4,
-   "seconds": 473,
+   "seconds": 474,
    "attempt": 1,
    "evidence": {
     "E": {
@@ -51,7 +51,7 @@
   "sekerbank": {
    "status": "ok",
    "offers": 14,
-   "seconds": 777,
+   "seconds": 773,
    "attempt": 1,
    "evidence": {
     "terms": "3..120 (118)",
